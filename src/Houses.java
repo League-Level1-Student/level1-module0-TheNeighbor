@@ -1,15 +1,25 @@
 import java.awt.Color;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import org.jointheleague.graphical.robot.Robot;
 
 public class Houses {
 	public static void main(String[] args) {
+		Color skyBlue = new Color(212, 254, 255);
 		Robot rob = new Robot();
+		String time = JOptionPane.showInputDialog("Night or day?");
+		if(time.equalsIgnoreCase("day")) {
+			rob.setWindowColor(skyBlue);
+		}
+		else if(time.equalsIgnoreCase("night")) {
+			rob.setWindowColor(Color.black);	
+		}
 		rob.setX(100);
 		rob.setY(500);
 		Random random = new Random();
-		for (int i = 0; i < 10; i++) {
+		for (;;) {
 			int randy = random.nextInt(3);
 			if (randy==0) {
 				drawHouse(rob, "small");
@@ -24,59 +34,48 @@ public class Houses {
 	}
 
 	static void drawHouse(Robot rob, String size) {
+		int height;
 		if (size.equals("small")) {
-			rob.setSpeed(100);
-			rob.setPenWidth(10);
-			rob.penDown();
+			height = 60;
 			rob.setPenColor(Color.ORANGE);
-			rob.move(60);
-			rob.turn(45);
-			rob.move(50);
-			rob.turn(90);
-			rob.move(50);
-			rob.turn(45);
-			rob.move(60);
-			rob.turn(-90);
-			rob.setPenColor(Color.GREEN);
-			rob.move(50);
-			rob.setPenColor(Color.ORANGE);
-			rob.turn(-90);
+
 		}
-		if(size.equals("medium")) {
-			rob.setSpeed(100);
-			rob.setPenWidth(10);
-			rob.penDown();
+		else if(size.equals("medium")) {
+			height = 120;
 			rob.setPenColor(Color.red);
-			rob.move(120);
-			rob.turn(45);
-			rob.move(50);
-			rob.turn(90);
-			rob.move(50);
-			rob.turn(45);
-			rob.move(120);
-			rob.turn(-90);
-			rob.setPenColor(Color.green);
-			rob.move(50);
-			rob.setPenColor(Color.red);
-			rob.turn(-90);
 		}
-		if (size.equals("large")) {
-			rob.setSpeed(100);
-			rob.setPenWidth(10);
-			rob.penDown();
+		else if(size.equals("large")) {
+			height = 250;
 			rob.setPenColor(Color.blue);
-			rob.move(250);
-			rob.move(60);
-			rob.turn(90);
-			rob.move(50);
-			rob.turn(90);
-			rob.move(60);
-			rob.move(250);
-			rob.turn(-90);
-			rob.setPenColor(Color.green);
-			rob.move(50);
-			rob.setPenColor(Color.blue);
-			rob.turn(-90);
 		}
+		else {
+			height = 0;
+		}
+		rob.setSpeed(100);
+		rob.setPenWidth(10);
+		rob.penDown();
+		rob.setAngle(0);
+		rob.move(height);
+		if(size.equals("large")) {
+			rob.turn(90);
+			rob.move(50);
+			rob.turn(90);
+		}
+		else {
+		drawPointyRoof(rob);
+		}
+		rob.move(height);
+		rob.turn(-90);
+		rob.setPenColor(Color.GREEN);
+		rob.move(50);
+		rob.turn(-90);
+	}
+	static void drawPointyRoof(Robot rob) {
+		rob.turn(45);
+		rob.move(50);
+		rob.turn(90);
+		rob.move(50);
+		rob.turn(45);
 	}
 }
+//(int i = 0; i < 10; i++)
