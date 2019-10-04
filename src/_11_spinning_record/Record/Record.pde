@@ -12,8 +12,11 @@ void setup() {
 
 void draw() {
  if (mousePressed) {
-    song = minim.loadFile("jeopardy.wav", 512); 
+   song.play();
    rotateImage(pictureOfRecord, x+=10);
+ }
+ else {
+  song.pause();
  }
   image(pictureOfRecord, 0,0);
 }
